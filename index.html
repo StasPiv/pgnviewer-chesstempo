@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="pgnyui.js"></script>
+    <script src="pgnviewer.js"></script>
+    <script src="pgnviewer_ext.js"></script>
+    <link href="board-min.css" rel="stylesheet" type="text/css" media="screen"/>
+    <script>
+        var pgnViewer = new PgnViewer(
+                {
+                    boardImagePath: "/home/stas/work/pgnviewer",
+                    pgnMode: 1,
+                    pgnString: "[Event]",
+                    clickAndClick: 1,
+                    makeActive: 1
+                }
+        );
+    </script>
+</head>
+<body>
+<div id="board-container"></div>
+<div id="board-moves"></div>
+</body>
+</html>
