@@ -131,7 +131,7 @@ Gettext = function (t) {
         return this.parse_locale_data(a), 1
     }
 }, Gettext.prototype.get_lang_refs = function () {
-    for (var t = new Array, e = document.getElementsByTagName("link"), a = 0; a < e.length; a++)
+    for (var t = [], e = document.getElementsByTagName("link"), a = 0; a < e.length; a++)
         if ("gettext" == e[a].rel && e[a].href) {
             if ("undefined" == typeof e[a].type || "" == e[a].type)
                 if (/\.json$/i.test(e[a].href)) e[a].type = "application/json";
@@ -191,7 +191,7 @@ Gettext = function (t) {
     var o = this.isValidObject(r),
         s = this.isValidObject(e) ? e + Gettext.context_glue + a : a,
         l = this.isValidObject(t) ? t : this.isValidObject(this.domain) ? this.domain : "messages",
-        p = new Array;
+        p = [];
     if ("undefined" != typeof Gettext._locale_data && this.isValidObject(Gettext._locale_data[l])) p.push(Gettext._locale_data[l]);
     else if ("undefined" != typeof Gettext._locale_data)
         for (var d in Gettext._locale_data) p.push(Gettext._locale_data[d]);
@@ -330,11 +330,11 @@ var gt = null;
 init_gettext();
 PgnViewer = function (e, r) {
     var t = new BoardConfig;
-    e && t.applyConfig(e), window._pvObject || (window._pvObject = new Array), window._pvObject[t.boardName] = this, e = t, e.pgnMode = !0, e.scrollVariations = !0, this.chessapp = new ChessApp(e), this.finishedCallback = r, e.loadImmediately ? (this.chessapp.init(null, null, null, this, !0), this.board = this.chessapp.board) : YAHOO.util.Event.onDOMReady(this.setup, this, !0)
+    e && t.applyConfig(e), window._pvObject || (window._pvObject = []), window._pvObject[t.boardName] = this, e = t, e.pgnMode = !0, e.scrollVariations = !0, this.chessapp = new ChessApp(e), this.finishedCallback = r, e.loadImmediately ? (this.chessapp.init(null, null, null, this, !0), this.board = this.chessapp.board) : YAHOO.util.Event.onDOMReady(this.setup, this, !0)
 }, PgnViewer.prototype.setup = function () {
     this.chessapp.init(null, null, null, this, !0), this.board = this.chessapp.board
 }, PgnViewer.prototype.updatePieceCallback = function (e, r, t, s, a, i, o, n, h, l, d, c) {
-    var b = new Object,
+    var b = {},
         u = d,
         g = !1,
         p = Board.getVarMove(u, s, t, r, e);
@@ -346,7 +346,7 @@ PgnViewer = function (e, r) {
 }, PGNGame = function (e, r, t, s, a, i, o, n, h, l, d, c, b) {
     this.movesseq = e, this.startFen = r, this.blackPlayer = t, this.whitePlayer = s, this.pgn_result = a, this.event = i, this.site = o, this.date = n, this.round = h, this.start_movenum = l, this.whitePlayerElo = d, this.blackPlayerElo = c, this.eco = b
 }, PGN = function (e) {
-    this.board = e, this.pgnGames = new Array, this.lastShownGame = 0
+    this.board = e, this.pgnGames = [], this.lastShownGame = 0
 }, PGN.prototype.pollPGNFromURL = function (e, r, t) {
     var s = this;
     return this.getPGNFromURL(e, r), this.foundResult && (t = this.board.pollPGNMillisecondsPostResult, this.foundResultPolls++), this.foundResultPolls >= this.board.numberPollsAfterResult ? void(this.finishedPolling = !0) : (this.pollTime = t, this.lastPoll = (new Date).getTime(), void setTimeout(function () {
@@ -413,7 +413,7 @@ PgnViewer = function (e, r) {
         ["MOVE", e]
     ]), null;
     e.length > 2 && ("x" == e.charAt(e.length - 3) ? (h = !0, l = e.substr(0, e.length - 3)) : l = e.substr(0, e.length - 2));
-    var m = new Array,
+    var m = [],
         v = 0,
         f = null,
         P = "w" == r ? ChessPiece.WHITE : ChessPiece.BLACK;
@@ -496,12 +496,12 @@ PgnViewer = function (e, r) {
     ctime && console.time("parsePGN"), e = e.replace(/&nbsp;/g, " "), e = e.replace(/^\s+|\s+$/g, "");
     var s = 0;
     this.pgn = e;
-    var a = new Array,
+    var a = [],
         i = 1,
         o = 0;
-    this.pgnGames = new Array, this.finishedParseCallback = r, this.startParseTime = (new Date).getTime();
+    this.pgnGames = [], this.finishedParseCallback = r, this.startParseTime = (new Date).getTime();
     var n = this.parsePGN_cont(a, i, o, s, t),
-        h = new Object;
+        h = {};
     return n ? (h.parsedOk = !1, h.errorString = n, h.pgnGames = null) : (h.parsedOk = !0, h.pgnGames = this.pgnGames), ctime && console.timeEnd("parsePGN"), h
 }, PGN.prototype.parsePGN_cont = function (e, r, t, s, a) {
     for (var i = this.pgn, o = this.board.boardName + "-progress", n = YAHOO.util.Dom.get(o); s < i.length;) {
@@ -518,15 +518,15 @@ PgnViewer = function (e, r) {
             f = "w",
             P = 0,
             A = 0,
-            O = (new Array, 0),
+            O = ([], 0),
             w = "",
             M = null,
             T = null,
-            C = new Array,
-            N = new Array,
-            k = new Array,
-            G = new Array,
-            y = new Array;
+            C = [],
+            N = [],
+            k = [],
+            G = [],
+            y = [];
         this.board.pieceMoveDisabled = !0, this.board.startFen = this.board.initialFen ? this.board.initialFen : "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
         var E = 0;
         for (E = s; E < i.length; E++) {
@@ -794,7 +794,7 @@ function clearClone(e) {
 
 function cloneWork(e) {
     if (null == e) return null;
-    var t = new Object;
+    var t = {};
     for (prop in e) t[prop] = "object" == typeof e[prop] ? e[prop] : e[prop];
     return t
 }
@@ -863,78 +863,78 @@ window.console || (window.console = {}), window.console.log || (window.console.l
     boardSounds.createSound("takesounds/78263__SuGu14__Metall01", "takePiece1"), boardSounds.createSound("movesounds/77971__SuGu14__Fusta_0_05", "movePiece3"), boardSounds.createSound("movesounds/10537__batchku__Hit_knuckle_15_004", "movePiece7"), boardSounds.createSound("analysis/76426__spazzo_1493__Finished", "finished")
 }), BoardConfig = function () {
     this.boardName = "board",
-    this.puzzle = !1,
-    this.showToMoveIndicators = !1,
-    this.scrollVariations = !1,
-    this.pgnString = null,
-    this.pgnDiv = null,
-    this.pgnFile = null,
-    this.scrollOffsetCorrection = 0,
-    this.handleCommentClicks = !1,
-    this.pollPGNMilliseconds = 0,
-    this.pollPGNMillisecondsPostResult = 3e4,
-    this.numberPollsAfterResult = 5,
-    this.gotoEndOnRefresh = !1,
-    this.allowPreMoveSelection = !1,
-    this.pieceSet = "merida",
-    this.pieceSize = 46,
-    this.isEndgame = !1,
-    this.tr = !1,
-    this.ie6FixCoordsOffsetSize = 4,
-    this.allIeFixCoordsOffsetSize = 0,
-    this.addVersion = !0,
-    this.ignoreMultipleGames = !1,
-    this.ml = 9999,
-    this.r = !1,
-    this.g = !1,
-    this.g2 = !1,
-    this.canPasteFen = !1,
-    this.makeActive = !1,
-    this.showSolutionButton = !1,
-    this.avoidMouseoverActive = !1,
-    this.autoScrollMoves = !1,
-    this.moveAnimationLength = .5,
-    this.showBracketsOnVariation = !0,
-    this.hideBracketsOnTopLevelVariation = !1,
-    this.variationStartString = " ( ",
-    this.variationEndString = " ) ",
-    this.ignoreCommentRegex = null,
-    this.newlineForEachMainMove = !0,
-    this.useDivClearForNewline = !1,
-    this.showNPS = !1,
-    this.squareColorClass = "",
-    this.analysisWindowName = "analysis_window",
-    this.pieceTakenSize = this.pieceSize,
-    this.pauseBetweenMoves = 800,
-    this.pgnMode = !1,
-    this.hidePGNErrors = !1,
-    this.previewMode = !1,
-    this.movesFormat = "default",
-    this.boardImagePath = "/bower_components/pgnviewer-chesstempo",
-    this.showCoordinates = !1,
-    this.highlightFromTo = !1,
-    this.highlightValidSquares = !1,
-    this.fideClock = !1,
-    this.disableFlipper = !1,
-    this.showResult = 1,
-    this.showEvent = 1,
-    this.showRound = 1,
-    this.showSite = 1,
-    this.showDate = 1,
-    this.ignoreFlipping = !1,
-    this.reverseFlip = !1,
-    this.autoplayFirst = !1,
-    this.dontOutputNavButtons = !1,
-    this.dontCheckLeavingPage = !1,
-    this.clickAndClick = !1,
-    this.clickAndClickDisabled = !1,
-    this.whiteMoveSoundName = "movePiece3",
-    this.blackMoveSoundName = "movePiece7",
-    this.whiteTakeSoundName = "takePiece1",
-    this.blackTakeSoundName = "takePiece1",
-    this.finishedSoundName = "finished",
-    this.soundEnabled = !1,
-    this.gamedb = !1
+        this.puzzle = !1,
+        this.showToMoveIndicators = !1,
+        this.scrollVariations = !1,
+        this.pgnString = null,
+        this.pgnDiv = null,
+        this.pgnFile = null,
+        this.scrollOffsetCorrection = 0,
+        this.handleCommentClicks = !1,
+        this.pollPGNMilliseconds = 0,
+        this.pollPGNMillisecondsPostResult = 3e4,
+        this.numberPollsAfterResult = 5,
+        this.gotoEndOnRefresh = !1,
+        this.allowPreMoveSelection = !1,
+        this.pieceSet = "merida",
+        this.pieceSize = 46,
+        this.isEndgame = !1,
+        this.tr = !1,
+        this.ie6FixCoordsOffsetSize = 4,
+        this.allIeFixCoordsOffsetSize = 0,
+        this.addVersion = !0,
+        this.ignoreMultipleGames = !1,
+        this.ml = 9999,
+        this.r = !1,
+        this.g = !1,
+        this.g2 = !1,
+        this.canPasteFen = !1,
+        this.makeActive = !1,
+        this.showSolutionButton = !1,
+        this.avoidMouseoverActive = !1,
+        this.autoScrollMoves = !1,
+        this.moveAnimationLength = .5,
+        this.showBracketsOnVariation = !0,
+        this.hideBracketsOnTopLevelVariation = !1,
+        this.variationStartString = " ( ",
+        this.variationEndString = " ) ",
+        this.ignoreCommentRegex = null,
+        this.newlineForEachMainMove = !0,
+        this.useDivClearForNewline = !1,
+        this.showNPS = !1,
+        this.squareColorClass = "",
+        this.analysisWindowName = "analysis_window",
+        this.pieceTakenSize = this.pieceSize,
+        this.pauseBetweenMoves = 800,
+        this.pgnMode = !1,
+        this.hidePGNErrors = !1,
+        this.previewMode = !1,
+        this.movesFormat = "default",
+        this.boardImagePath = "/bower_components/pgnviewer-chesstempo",
+        this.showCoordinates = !1,
+        this.highlightFromTo = !1,
+        this.highlightValidSquares = !1,
+        this.fideClock = !1,
+        this.disableFlipper = !1,
+        this.showResult = 1,
+        this.showEvent = 1,
+        this.showRound = 1,
+        this.showSite = 1,
+        this.showDate = 1,
+        this.ignoreFlipping = !1,
+        this.reverseFlip = !1,
+        this.autoplayFirst = !1,
+        this.dontOutputNavButtons = !1,
+        this.dontCheckLeavingPage = !1,
+        this.clickAndClick = !1,
+        this.clickAndClickDisabled = !1,
+        this.whiteMoveSoundName = "movePiece3",
+        this.blackMoveSoundName = "movePiece7",
+        this.whiteTakeSoundName = "takePiece1",
+        this.blackTakeSoundName = "takePiece1",
+        this.finishedSoundName = "finished",
+        this.soundEnabled = !1,
+        this.gamedb = !1
 }, BoardConfig.prototype.applyConfig = function (e) {
     for (var t in e) this[t] = e[t]
 }, ChessApp = function (e) {
@@ -962,7 +962,7 @@ window.console || (window.console = {}), window.console.log || (window.console.l
             }
     }
 
-    ChessPiece.init(), this.board = new Board(this.config.boardName), s && this.board.addUpdatePieceListener(i), this.board.moveArray = new Array, this.hideOnInit || (YAHOO.util.Dom.setStyle(this.config.boardName + "-container", "display", "block"), YAHOO.util.Dom.setStyle("toPlaySpan", "display", "inline")), this.tactics = this.displayMode || this.config.pgnMode || this.config.previewMode || this.config.fenBoard ? null : new TacticsUI(this.board), this.problem = this.config.pgnMode || this.config.previewMode || this.config.fenBoard ? null : new ProblemUI(this.board, this.tactics), this.board.tactics = this.tactics, this.board.problem = this.problem, this.board.puzzle = this.config.puzzle, this.problem && (this.problem.autoPlayOpponent = 1), this.pgn = this.config.pgnMode ? new PGN(this.board) : null;
+    ChessPiece.init(), this.board = new Board(this.config.boardName), s && this.board.addUpdatePieceListener(i), this.board.moveArray = [], this.hideOnInit || (YAHOO.util.Dom.setStyle(this.config.boardName + "-container", "display", "block"), YAHOO.util.Dom.setStyle("toPlaySpan", "display", "inline")), this.tactics = this.displayMode || this.config.pgnMode || this.config.previewMode || this.config.fenBoard ? null : new TacticsUI(this.board), this.problem = this.config.pgnMode || this.config.previewMode || this.config.fenBoard ? null : new ProblemUI(this.board, this.tactics), this.board.tactics = this.tactics, this.board.problem = this.problem, this.board.puzzle = this.config.puzzle, this.problem && (this.problem.autoPlayOpponent = 1), this.pgn = this.config.pgnMode ? new PGN(this.board) : null;
     var a = MovesDisplay.DEFAULT_DISPLAY_TYPE;
     if ("main_on_own_line" == this.config.movesFormat && (a = MovesDisplay.MAIN_ON_OWN_LINE), this.movesDisplay = new MovesDisplay(this.board, a), this.movesDisplay.variationOnOwnLine = this.config.variationOnOwnLine, this.board.movesDisplay = this.movesDisplay, this.board.boardImagePath = this.config.boardImagePath, this.board.showNPS = this.config.showNPS, this.board.showSolutionButton = this.config.showSolutionButton, this.board.analysisWindowName = this.config.analysisWindowName, this.board.squareColorClass = this.config.squareColorClass, this.board.tr = this.config.tr, this.board.scrollToBoardTop = this.config.scrollToBoardTop, this.board.ml = this.config.ml, this.board.r = this.config.r, this.board.g = this.config.g, this.board.g2 = this.config.g2, this.board.canPasteFen = this.config.canPasteFen, this.board.addVersion = this.config.addVersion, this.board.ignoreMultipleGames = this.config.ignoreMultipleGames, this.board.ie6FixCoordsOffsetSize = this.config.ie6FixCoordsOffsetSize, this.board.allIeFixCoordsOffsetSize = this.config.allIeFixCoordsOffsetSize, this.board.allowingFreeMovement = this.config.allowingFreeMovement, this.board.autoScrollMoves = this.config.autoScrollMoves, this.board.moveAnimationLength = this.config.moveAnimationLength, this.board.showBracketsOnVariation = this.config.showBracketsOnVariation, this.board.hideBracketsOnTopLevelVariation = this.config.hideBracketsOnTopLevelVariation, this.board.variationStartString = this.config.variationStartString, this.board.variationEndString = this.config.variationEndString, this.board.ignoreCommentRegex = this.config.ignoreCommentRegex, this.board.newlineForEachMainMove = this.config.newlineForEachMainMove, this.board.useDivClearForNewline = this.config.useDivClearForNewline, this.board.pieceSize = this.config.pieceSize, this.board.showToMoveIndicators = this.config.showToMoveIndicators, this.board.handleCommentClicks = this.config.handleCommentClicks, this.board.scrollOffsetCorrection = this.config.scrollOffsetCorrection, this.board.pollPGNMilliseconds = this.config.pollPGNMilliseconds, this.board.pollPGNMillisecondsPostResult = this.config.pollPGNMillisecondsPostResult, this.board.numberPollsAfterResult = this.config.numberPollsAfterResult, this.board.gotoEndOnRefresh = this.config.gotoEndOnRefresh, this.board.allowPreMoveSelection = this.config.allowPreMoveSelection, this.board.pieceTakenSize = this.config.pieceTakenSize, this.board.pieceSet = this.config.pieceSet, this.board.pauseBetweenMoves = this.config.pauseBetweenMoves, this.board.showCoordinates = this.config.showCoordinates, this.board.highlightFromTo = this.config.highlightFromTo, this.board.highlightValidSquares = this.config.highlightValidSquares, this.board.fideClock = this.config.fideClock, this.board.disableFlipper = this.config.disableFlipper, this.board.showDate = this.config.showDate, this.board.showEvent = this.config.showEvent, this.board.showGame = this.config.showGame, this.board.showResult = this.config.showResult, this.board.showRound = this.config.showRound, this.board.showSite = this.config.showSite, this.board.ignoreFlipping = this.config.ignoreFlipping, this.board.reverseFlip = this.config.reverseFlip, this.board.autoplayFirst = this.config.autoplayFirst, this.board.scrollVariations = this.config.scrollVariations, this.board.dontOutputNavButtons = this.config.dontOutputNavButtons, this.board.clickAndClick = this.config.clickAndClick, this.board.clickAndClickDisabled = this.config.clickAndClickDisabled, this.board.avoidMouseoverActive = this.config.avoidMouseoverActive, this.board.dontCheckLeavingPage = this.config.dontCheckLeavingPage, this.board.whiteMoveSoundName = this.config.whiteMoveSoundName, this.board.whiteTakeSoundName = this.config.whiteTakeSoundName, this.board.blackMoveSoundName = this.config.blackMoveSoundName, this.board.blackTakeSoundName = this.config.blackTakeSoundName, this.board.soundEnabled = this.config.soundEnabled, this.board.hidePGNErrors = this.config.hidePGNErrors, this.board.gamedb = this.config.gamedb, this.config.makeActive && (activeBoard = this.board), this.problem && (this.problem.isEndgame = this.config.isEndgame), this.board.puzzle || "undefined" == typeof loginManager || (this.tactics && (loginManager.setLoginCallback(this.tactics.loginCallback, this.tactics), loginManager.setLogoutCallback(this.tactics.logoutCallback, this.tactics)), this.problem && loginManager.setSessionCallback(this.problem.sessionCallback, this.problem)), YAHOO.util.DragDropMgr.clickTimeThresh = 50, YAHOO.util.DragDropMgr.clickPixelThresh = 1, this.board.createBoardUI(), !this.board.puzzle)
         if (this.problem && this.problem.createProblemUI(), this.tactics && this.tactics.initProblemCompleteOverlay(), this.problem && this.problem.initLoadingOverlay(), this.config.pgnMode) {
@@ -1448,26 +1448,114 @@ ChessPiece = function (e, t, o, i) {
     return this.board_xy = YAHOO.util.Dom.getXY("ctb-" + this.boardName), this.board_xy
 }, Board.prototype.updateFromTo = function (e, t, o, i, s, r) {
     YAHOO.util.Dom.removeClass(this.lastFromSquare, "ct-from-square"), YAHOO.util.Dom.removeClass(this.lastToSquare, "ct-to-square"), null != o && (this.lastFromSquare = e, this.lastToSquare = t, this.lastFromRow = o, this.lastFromColumn = i, this.lastToRow = s, this.lastToColumn = r, this.highlightFromTo && (YAHOO.util.Dom.addClass(e, "ct-from-square"), YAHOO.util.Dom.addClass(t, "ct-to-square")))
-}, Board.prototype.makeMove = function (e, t, o, i, s, r, a, n, l) {
+}, Board.prototype.makeMove = function (
+    move,
+    piece,
+    toRow,
+    moveAnimationLength,
+    isProcessTaken,
+    isUpdateFromTo,
+    promotionCallback,
+    n,
+    l
+) {
     var h, c;
-    this.isFlipped ? (h = YAHOO.util.Dom.get(this.boardName + "-s" + (7 - e.fromColumn) + (7 - e.fromRow)), c = YAHOO.util.Dom.get(this.boardName + "-s" + (7 - e.toColumn) + (7 - e.toRow))) : (h = YAHOO.util.Dom.get(this.boardName + "-s" + e.fromColumn + e.fromRow), c = YAHOO.util.Dom.get(this.boardName + "-s" + e.toColumn + e.toRow)), this.oldSelectedSquare && (!this.allowPreMoveSelection || this.oldSelectedPiece && t && this.oldSelectedPiece.colour == t.colour) && (YAHOO.util.Dom.removeClass(this.oldSelectedSquare, "ct-source-square"), this.oldSelectedSquare = null, this.oldSelectedPiece = null), r && this.updateFromTo(h, c, e.fromRow, e.fromColumn, e.toRow, e.toColumn);
-    var d = this.boardPieces[e.toColumn][e.toRow];
-    null != d && (d.enPassant = !1, d.castled = !1),
-    t.piece == ChessPiece.PAWN && e.toColumn != e.fromColumn &&
-    null == this.boardPieces[e.toColumn][e.toRow] && (d = this.boardPieces[e.toColumn][e.fromRow],
-    this.boardPieces[e.toColumn][e.fromRow] = null,
-    null != d && (d.enPassant = !0));
+
+    this.isFlipped ?
+        (h = YAHOO.util.Dom.get(this.boardName + "-s" + (7 - move.fromColumn) + (7 - move.fromRow)),
+        c = YAHOO.util.Dom.get(this.boardName + "-s" + (7 - move.toColumn) + (7 - move.toRow))) :
+
+        (h = YAHOO.util.Dom.get(this.boardName + "-s" + move.fromColumn + move.fromRow),
+        c = YAHOO.util.Dom.get(this.boardName + "-s" + move.toColumn + move.toRow)),
+
+    this.oldSelectedSquare &&
+    (!this.allowPreMoveSelection || this.oldSelectedPiece && piece && this.oldSelectedPiece.colour == piece.colour) &&
+    (
+        YAHOO.util.Dom.removeClass(this.oldSelectedSquare, "ct-source-square"),
+        this.oldSelectedSquare = null,
+        this.oldSelectedPiece = null
+    );
+
+    isUpdateFromTo && this.updateFromTo(h, c, move.fromRow, move.fromColumn, move.toRow, move.toColumn);
+
+    var takenPiece = this.boardPieces[move.toColumn][move.toRow];
+    null != takenPiece && (takenPiece.enPassant = !1, takenPiece.castled = !1),
+    piece.piece == ChessPiece.PAWN && move.toColumn != move.fromColumn &&
+    null == this.boardPieces[move.toColumn][move.toRow] && (takenPiece = this.boardPieces[move.toColumn][move.fromRow],
+        this.boardPieces[move.toColumn][move.fromRow] = null,
+    null != takenPiece && (takenPiece.enPassant = !0));
     var u = null;
-    if (t.piece == ChessPiece.KING && Math.abs(e.toColumn - e.fromColumn) > 1) {
-        var v, m;
-        e.toColumn > e.fromColumn ? (u = this.boardPieces[7][e.fromRow], v = e.fromRow, m = 5, this.boardPieces[7][e.toRow] = null) : (u = this.boardPieces[0][e.fromRow], v = e.fromRow, m = 3, this.boardPieces[0][e.toRow] = null), u ? (u.setPosition(m, v, o, null, i, null, l), this.boardPieces[u.column][u.row] = u, u.castled = !0) : alert("No castle piece")
+
+    if (piece.piece == ChessPiece.KING && Math.abs(move.toColumn - move.fromColumn) > 1) {
+        var fromRow, m;
+        move.toColumn > move.fromColumn ?
+            (u = this.boardPieces[7][move.fromRow], fromRow = move.fromRow, m = 5, this.boardPieces[7][move.toRow] = null) :
+            (u = this.boardPieces[0][move.fromRow], fromRow = move.fromRow, m = 3, this.boardPieces[0][move.toRow] = null), u ?
+            (u.setPosition(m, fromRow, toRow, null, moveAnimationLength, null, l), this.boardPieces[u.column][u.row] = u,
+            u.castled = !0) : alert("No castle piece")
     }
-    e.taken = d, d && s && this.processTaken(d, !0), this.moveNumber++, e.preHalfMoveNumber = this.halfMoveNumber, this.halfMoveNumber++, (d || t.piece == ChessPiece.PAWN) && (this.halfMoveNumber = 0), this.board_xy = null, null != e.promotion && t.changePieceKeepImage(e.promotion), t.setPosition(e.toColumn, e.toRow, o, function () {
-        var o = d;
-        o && o.setVisible(!1), null != e.promotion && t.changePiece(e.promotion), a && a.call(n)
-    }, i, d, l), o || null != e.promotion && t.changePiece(e.promotion), this.boardPieces[e.fromColumn][e.fromRow] = null, this.boardPieces[e.toColumn][e.toRow] = t, null != u && (e.taken = u), e.preCastleQueenSide = new Array(2), e.preCastleKingSide = new Array(2), e.preCastleQueenSide[0] = this.canCastleQueenSide[0], e.preCastleQueenSide[1] = this.canCastleQueenSide[1], e.preCastleKingSide[0] = this.canCastleKingSide[0], e.preCastleKingSide[1] = this.canCastleKingSide[1], t.piece == ChessPiece.ROOK ? (t.colour == ChessPiece.WHITE && 0 == e.fromRow || t.colour == ChessPiece.BLACK && 7 == e.fromRow) && (0 == e.fromColumn ? this.canCastleQueenSide[t.colour] = !1 : 7 == e.fromColumn && (this.canCastleKingSide[t.colour] = !1)) : t.piece == ChessPiece.KING && (this.canCastleQueenSide[t.colour] = !1, this.canCastleKingSide[t.colour] = !1), d && d.piece == ChessPiece.ROOK && (0 == e.toColumn ? (d.colour == ChessPiece.WHITE && 0 == e.toRow || d.colour == ChessPiece.BLACK && 7 == e.toRow) && (this.canCastleQueenSide[d.colour] = !1) : 7 == e.toColumn && (d.colour == ChessPiece.WHITE && 0 == e.toRow || d.colour == ChessPiece.BLACK && 7 == e.toRow) && (this.canCastleKingSide[d.colour] = !1)), this.updatePositionReached(t.colour);
+
+    move.taken = takenPiece;
+    takenPiece && isProcessTaken && this.processTaken(takenPiece, !0);
+    this.moveNumber++;
+    move.preHalfMoveNumber = this.halfMoveNumber;
+    this.halfMoveNumber++;
+    (takenPiece || piece.piece == ChessPiece.PAWN) && (this.halfMoveNumber = 0);
+    this.board_xy = null;
+    null != move.promotion && piece.changePieceKeepImage(move.promotion);
+
+    piece.setPosition(move.toColumn, move.toRow, toRow, function () {
+        var o = takenPiece;
+        o && o.setVisible(!1),
+        null != move.promotion && piece.changePiece(move.promotion),
+        promotionCallback && promotionCallback.call(n)
+    }, moveAnimationLength, takenPiece, l);
+
+    toRow || null != move.promotion && piece.changePiece(move.promotion);
+    this.boardPieces[move.fromColumn][move.fromRow] = null;
+    this.boardPieces[move.toColumn][move.toRow] = piece;
+    null != u && (move.taken = u);
+
+    // deny castle
+    move.preCastleQueenSide = new Array(2);
+    move.preCastleKingSide = new Array(2);
+    move.preCastleQueenSide[0] = this.canCastleQueenSide[0];
+    move.preCastleQueenSide[1] = this.canCastleQueenSide[1];
+    move.preCastleKingSide[0] = this.canCastleKingSide[0];
+    move.preCastleKingSide[1] = this.canCastleKingSide[1];
+
+    piece.piece == ChessPiece.ROOK ?
+    (piece.colour == ChessPiece.WHITE && 0 == move.fromRow ||
+     piece.colour == ChessPiece.BLACK && 7 == move.fromRow) &&
+
+    (0 == move.fromColumn ? this.canCastleQueenSide[piece.colour] = !1 :
+     7 == move.fromColumn && (this.canCastleKingSide[piece.colour] = !1)) :
+
+    piece.piece == ChessPiece.KING &&
+    (this.canCastleQueenSide[piece.colour] = !1,
+     this.canCastleKingSide[piece.colour] = !1);
+
+    takenPiece && takenPiece.piece == ChessPiece.ROOK &&
+    (
+        0 == move.toColumn ?
+        (
+            takenPiece.colour == ChessPiece.WHITE && 0 == move.toRow ||
+            takenPiece.colour == ChessPiece.BLACK && 7 == move.toRow
+        ) &&
+        (this.canCastleQueenSide[takenPiece.colour] = !1) :
+
+        7 == move.toColumn &&
+        (
+            takenPiece.colour == ChessPiece.WHITE && 0 == move.toRow ||
+            takenPiece.colour == ChessPiece.BLACK && 7 == move.toRow
+        ) &&
+        (this.canCastleKingSide[takenPiece.colour] = !1)
+    );
+
+    this.updatePositionReached(piece.colour);
+
     for (var p = 0; p < this.registeredMakeMoveListeners.length; p++) {
-        this.registeredMakeMoveListeners[p].makeMoveCallback(e)
+        this.registeredMakeMoveListeners[p].makeMoveCallback(move)
     }
 }, Board.prototype.isThreeFoldRep = function (e) {
     var t = this.toMove;
@@ -1685,7 +1773,7 @@ ChessPiece = function (e, t, o, i) {
     }
     return l += C + b
 }, Board.getVarMove = function (e, t, o, i, s) {
-    if (e.vars && e.vars.length > 0)
+    if (e && e.vars && e.vars.length > 0)
         for (var r = 0, r = 0; r < e.vars.length; r++) {
             var a = e.vars[r];
             if (a.fromColumn == i.column && a.fromRow == i.row && a.toRow == t && a.toColumn == o && ("" == s || s == a.promotion)) return a
@@ -1879,7 +1967,7 @@ ChessPiece = function (e, t, o, i) {
     }
     return this.firstNonMove = !0, g
 }, Board.prototype.setMoveSeqLalg = function (e, t, o, i, s, r, a, n, l, h, c, d) {
-    var u = new Array;
+    var u = [];
     e && e.length > 0 && (u = e.replace(/\s+$/g, "").split(" ")), this.setupFromLalgArray(u, i, o, t, s, r, a, n, l, h, c, d)
 }, Board.prototype.setupFromLalgArray = function (e, t, o, i, s, r, a, n, l, h, c, d) {
     var u = !1;
@@ -1888,12 +1976,12 @@ ChessPiece = function (e, t, o, i) {
         var v = this.movesDisplay.getMovesDisplay();
         v && (r || YAHOO.util.Event.purgeElement(v, !0), v.innerHTML = "")
     }
-    i || (i = new Array);
+    i || (i = []);
     var m = this.cloneBoard();
     this.movesDisplay.firstNonMove = !1;
     var p = null,
         g = null;
-    s || (p = new Array, g = new Array), !h && this.prev_move && (u && console.log("this.prev_move:" + this.prev_move.output()), m.boardPieces[this.prev_move.fromColumn][this.prev_move.fromRow] && m.makeMove(this.prev_move, m.boardPieces[this.prev_move.fromColumn][this.prev_move.fromRow], !1, m.moveAnimationLength, !1, !1));
+    s || (p = [], g = []), !h && this.prev_move && (u && console.log("this.prev_move:" + this.prev_move.output()), m.boardPieces[this.prev_move.fromColumn][this.prev_move.fromRow] && m.makeMove(this.prev_move, m.boardPieces[this.prev_move.fromColumn][this.prev_move.fromRow], !1, m.moveAnimationLength, !1, !1));
     var f = null;
     s || (f = m.cloneBoard());
     var b = null,
@@ -1903,10 +1991,10 @@ ChessPiece = function (e, t, o, i) {
         O = !1,
         P = 0,
         A = !1,
-        S = new Array,
-        w = new Array;
+        S = [],
+        w = [];
     w[0] = 0;
-    for (var N = new Array, D = new Array, k = 2 * o - 1, B = 2 * o - 1, H = new Array, E = ChessPiece.WHITE, x = 0, L = "", I = "", T = "", F = "", Y = -1, _ = 0, R = 0; R < e.length; R++) {
+    for (var N = [], D = [], k = 2 * o - 1, B = 2 * o - 1, H = [], E = ChessPiece.WHITE, x = 0, L = "", I = "", T = "", F = "", Y = -1, _ = 0, R = 0; R < e.length; R++) {
         var q = 0;
         if (u && console.log("movesArr[" + R + "]:" + e[R]), "ALT" != e[R])
             if (0 != e[R].indexOf("EVAL"))
@@ -1953,7 +2041,7 @@ ChessPiece = function (e, t, o, i) {
                                             if (E = E == ChessPiece.BLACK ? ChessPiece.WHITE : ChessPiece.BLACK, j.moveNum = k, k++, P > 0)
                                                 if (A) {
                                                     var Z = b;
-                                                    null == Z && alert("Got no previous move for variation:" + movesArra[R]), 0 == Z.numVars && (Z.vars = new Array), j.isAlt = O, j.mateInMoves = _, Z.vars[Z.numVars++] = j, j.prev = Z.prev, A = !1
+                                                    null == Z && alert("Got no previous move for variation:" + movesArra[R]), 0 == Z.numVars && (Z.vars = []), j.isAlt = O, j.mateInMoves = _, Z.vars[Z.numVars++] = j, j.prev = Z.prev, A = !1
                                                 } else j.prev = b, null != b && (b.next = j);
                                             else j.prev = b, null != b && (b.next = j);
                                             w[P + 1] = 0, 0 == P && (x = C), i[C++] = j, m.moveArray[C - 1] = j, b = j, s || (f = m.cloneBoard()), m.makeMove(j, m.boardPieces[j.fromColumn][j.fromRow], !1, m.moveAnimationLength, !1, !1)
@@ -1998,11 +2086,11 @@ ChessPiece = function (e, t, o, i) {
     for (var o = []; t && !t.atEnd;) e.makeMove(t, e.boardPieces[t.fromColumn][t.fromRow], !1, this.moveAnimationLength, !1, !1), o.push(e.getMaterialBalance()), t = t.next, e.toggleToMove();
     return o
 }, Board.prototype.lalgToMoveList = function (e, t, o, i, s, r) {
-    ctime && console.time("lalgToMoveList"), clog && console.log("startMoveNum:" + o), i || (i = new Array);
+    ctime && console.time("lalgToMoveList"), clog && console.log("startMoveNum:" + o), i || (i = []);
     var a = this.cloneBoard(),
         n = null,
         l = null;
-    r || (n = new Array, l = new Array), !s && this.prev_move && a.makeMove(this.prev_move, a.boardPieces[this.prev_move.fromColumn][this.prev_move.fromRow], !1, a.moveAnimationLength, !1, !1);
+    r || (n = [], l = []), !s && this.prev_move && a.makeMove(this.prev_move, a.boardPieces[this.prev_move.fromColumn][this.prev_move.fromRow], !1, a.moveAnimationLength, !1, !1);
     var h = null;
     r || (h = a.cloneBoard());
     var c = [],
@@ -2012,10 +2100,10 @@ ChessPiece = function (e, t, o, i) {
         m = !1,
         p = 0,
         g = !1,
-        f = new Array,
-        b = new Array;
+        f = [],
+        b = [];
     b[0] = 0;
-    for (var C = new Array, y = new Array, M = 2 * o - 1, O = (new Array, ChessPiece.WHITE), P = 0, A = !0, S = 0; S < e.length; S++)
+    for (var C = [], y = [], M = 2 * o - 1, O = ([], ChessPiece.WHITE), P = 0, A = !0, S = 0; S < e.length; S++)
         if ("}" != e[S])
             if (m) v += e[S] + " ";
             else if ("{" != e[S])
@@ -2028,7 +2116,7 @@ ChessPiece = function (e, t, o, i) {
                             if (w.pgn ? (N = w.pgn, w.SAN = w.pgn) : (N = a.makeShortAlgabraic(w.fromColumn, w.fromRow, w.toColumn, w.toRow, w), w.SAN = N), O = O == ChessPiece.BLACK ? ChessPiece.WHITE : ChessPiece.BLACK, w.moveNum = M, M++, p > 0)
                                 if (g) {
                                     var D = d;
-                                    null == D && alert("Got no previous move for variation:" + movesArra[S]), 0 == D.numVars && (D.vars = new Array), D.vars[D.numVars++] = w, w.prev = D.prev, g = !1
+                                    null == D && alert("Got no previous move for variation:" + movesArra[S]), 0 == D.numVars && (D.vars = []), D.vars[D.numVars++] = w, w.prev = D.prev, g = !1
                                 } else w.prev = d, null != d && (d.next = w);
                             else w.prev = d, null != d && (d.next = w);
                             b[p + 1] = 0, 0 == p && (P = u), i[u++] = w, a.moveArray[u - 1] = w, d = w, r || (h = a.cloneBoard()), a.makeMove(w, a.boardPieces[w.fromColumn][w.fromRow], !1, a.moveAnimationLength, !1, !1)
@@ -2050,7 +2138,7 @@ ChessPiece = function (e, t, o, i) {
 }, Board.prototype.clearMoveList = function (e) {
     this.movesDisplay.firstNonMove = !1;
     var t = this.movesDisplay.getMovesDisplay();
-    t && (YAHOO.util.Event.purgeElement(t, !0), t.innerHTML = ""), this.currentMove = null, this.moveIndex = -1, this.moveArray = new Array, e ? (e.prev = null, this.startMoveNum = e.moveNum) : this.startMoveNum = 1
+    t && (YAHOO.util.Event.purgeElement(t, !0), t.innerHTML = ""), this.currentMove = null, this.moveIndex = -1, this.moveArray = [], e ? (e.prev = null, this.startMoveNum = e.moveNum) : this.startMoveNum = 1
 }, Board.prototype.insertMovesFromMoveList = function (e, t, o, i, s) {
     var r = !t;
     if (clog && console.log("insertMovesFromMoveList called"), ctime && r && console.time("insertMovesFromMoveList"), this.movesDisplay) {
@@ -2135,7 +2223,7 @@ ChessPiece = function (e, t, o, i) {
             }
     }
 }, Board.prototype.setMoveSequence = function (e, t, o, i) {
-    this.tacticMoveArray = new Array, this.moveArray = this.tacticMoveArray, this.setMoveSeqLalg(e, this.tacticMoveArray, o, i), this.tacticsmoveArrayLastMoveIndex = this.lastMoveIndex, this.fullmoveArray = null, this.lastMoveIndex = this.tacticsmoveArrayLastMoveIndex
+    this.tacticMoveArray = [], this.moveArray = this.tacticMoveArray, this.setMoveSeqLalg(e, this.tacticMoveArray, o, i), this.tacticsmoveArrayLastMoveIndex = this.lastMoveIndex, this.fullmoveArray = null, this.lastMoveIndex = this.tacticsmoveArrayLastMoveIndex
 }, Board.prototype.resetVariationsPreviousNodes = function (e, t) {
     if (e.numVars > 0)
         for (var o = 0; o < e.numVars; o++) e.vars[o].prev = t, this.resetVariationsPreviousNodes(e.vars[o], t)
@@ -2331,7 +2419,7 @@ ChessPiece = function (e, t, o, i) {
         var v = !1;
         if (e && e.prev && e.prev.next != e && (v = !0), this.currentMove != e || o ? clog && console.log("not setting current move in replacemove") : this.currentMove = t, t.atEnd = e.atEnd, t.prev = e.prev, t.next = e.next, t.fen = e.fen, t.nextFen = e.nextFen, t.bestMoves = e.bestMoves, t.correctMove = e.correctMove, t.wrongMove = e.wrongMove, t.moveNum = e.moveNum, t.ravLevel = e.ravLevel, t.index = e.index, clog && console.log("replacingVariation with var not null:" + l), l) return h.vars[c] = t, t.vars = e.vars, t.numVars = e.numVars, this.reconnectNextNodeVariations(t, e.next), e.next && (e.next.prev = t), this.moveArray[t.index] = t, void(clog && (console.log("replacing existing sub variation of main line"), t.next && console.log("next of replacement variation:" + t.next.output())));
         if (o) {
-            clog && console.log("replacing as variation"), 0 == e.numVars && (e.vars = new Array), e.vars[e.numVars++] = t, e.atEnd = 0, t.next = null;
+            clog && console.log("replacing as variation"), 0 == e.numVars && (e.vars = []), e.vars[e.numVars++] = t, e.atEnd = 0, t.next = null;
             var m = this.createMoveFromString("i1i2");
             t.next = m, m.prev = t, m.next = null, m.atEnd = 1, m.moveNum = t.moveNum + 1, m.ravLevel = t.ravLevel, m.endNode = !0
         } else clog && console.log("not replacing as variation"), !v && e.prev && (e.prev.next = t), e.next && (e.next.prev = t), t.vars = e.vars, t.numVars = e.numVars, this.reconnectNextNodeVariations(t, e.next), this.firstMove == e && (this.firstMove = t), this.moveArray[t.index] = t
@@ -2425,6 +2513,7 @@ ChessPiece = function (e, t, o, i) {
     d = this.currentMove && this.currentMove.prev ? this.currentMove.prev : this.prev_move;
     var u = "- ";
     if (d) {
+        clog && console.log(d.moveString);
         var v = this.boardPieces[d.toColumn][d.toRow];
         v && v.piece == ChessPiece.PAWN && (v.colour == ChessPiece.WHITE ? 1 == d.fromRow && 3 == d.toRow && (u = Move.columnToChar(d.fromColumn) + "3 ") : 6 == d.fromRow && 4 == d.toRow && (u = Move.columnToChar(d.fromColumn) + "6 "))
     }
@@ -2710,7 +2799,7 @@ ChessPiece = function (e, t, o, i) {
     var l = this.getCandidateMoves(e, t, !0, !0);
     return l.length > 0 ? !1 : !0
 }, Board.prototype.getCandidateMoves = function (e, t, o, i) {
-    for (var s = new Array, r = 0; 8 > r; r++)
+    for (var s = [], r = 0; 8 > r; r++)
         for (var a = 0; 8 > a; a++) {
             var n = this.boardPieces[r][a],
                 l = [];
@@ -2806,7 +2895,7 @@ ChessPiece = function (e, t, o, i) {
 }, Board.prototype.copyCastleKingSide = function () {
     return [this.canCastleKingSide[0], this.canCastleKingSide[1]]
 }, Board.copyMoves = function (e, t, o) {
-    var i = new Array;
+    var i = [];
     if (t) {
         if (e)
             for (var s = 0; s < e.length; s++) {
@@ -3154,7 +3243,7 @@ Board.prototype.setupFromFenLightweight = function (e, t, o, i, s) {
         var a = this.boardName + "-piecestaken",
             n = YAHOO.util.Dom.get(a);
         if (n && (n.innerHTML = ""), -1 != e) {
-            var l = new Array,
+            var l = [],
                 h = this.moveArray[e];
             clog && h && (console.log("gotomoveindex move:" + h.output()), h.next && console.log("gotomoveindex move.next:" + h.next.output()), h.prev && console.log("gotomoveindex move.prev:" + h.prev.output()));
             var c = 0;
@@ -3426,12 +3515,12 @@ Board.getSquareColour = function (e, t) {
     e = this.moveArray && this.moveArray.length > 0 ? this.moveArray[0] : this.firstMove;
     for (var t = 0; e && !e.atEnd;) t++, e = e.next;
     return t
-}, Board.prototype.processTaken = function (e, t) {
+}, Board.prototype.processTaken = function (piece, t) {
     var o = this.boardName + "-piecestaken",
         i = YAHOO.util.Dom.get(o);
     if (i)
         if (t) {
-            var s = get_image_str(ChessPiece.pieceIconNames[e.colour][e.piece], this.boardImagePath, this.pieceSet, this.pieceTakenSize, this.addVersion);
+            var s = get_image_str(ChessPiece.pieceIconNames[piece.colour][piece.piece], this.boardImagePath, this.pieceSet, this.pieceTakenSize, this.addVersion);
             i.innerHTML = i.innerHTML + '<img src="' + s + '"/>'
         } else {
             var r = i.innerHTML.split("<");
@@ -3439,7 +3528,7 @@ Board.getSquareColour = function (e, t) {
             for (var a = 1; a < r.length - 1; a++) i.innerHTML = i.innerHTML + "<" + r[a]
         }
 }, Pool = function () {
-    this.pool = new Array, this.count = -1, this.numGot = 0, this.numPut = 0
+    this.pool = [], this.count = -1, this.numGot = 0, this.numPut = 0
 }, Pool.prototype.getObject = function () {
     var e = null;
     return this.count >= 0 && (this.numGot++, e = this.pool[this.count--]), e
